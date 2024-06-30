@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Modal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/58a810656e.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+
+        .modal.active,
+        .overlay.active {
+            display: flex !important;
+        }
+
+        .modal {
+            display: none;
+            z-index: 50;
+            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.3); /* Adjusted for more transparency */
+        }
+
+        .overlay {
+            display: none;
+            z-index: 40;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+
+        .circle.brown {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 10%;
+            box-shadow: 0 0 20px 10px rgba(165, 42, 42, 0.7);
+            animation: oscillate 5s infinite;
+        }
+
+        .circle.blue {
+            width: 120px;
+            height: 120px;
+            bottom: 10%;
+            right: 10%;
+            box-shadow: 0 0 20px 10px rgba(0, 0, 255, 0.7);
+            animation: oscillate 7s infinite;
+        }
+
+        @keyframes oscillate {
+            0%,
+            100% {
+                transform: translateX(0) translateY(0);
+            }
+
+            25% {
+                transform: translateX(20px) translateY(20px);
+            }
+
+            50% {
+                transform: translateX(-20px) translateY(-20px);
+            }
+
+            75% {
+                transform: translateX(20px) translateY(-20px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Wrapper Full -->
+    <div class="flex items-center justify-center h-screen bg-black relative overflow-hidden">
+        <img src="brown.jpg" alt="" class="circle brown">
+        <img src="blue.png" alt="" class="circle blue">
+        <div class="relative z-10">
+            <!-- Card Wrapper -->
+            <div class="bg-gray-900 text-white p-6 rounded-lg shadow-lg relative z-10">
+                <img src="modalpic.jpg" alt="user" width="150px" class="rounded-full mx-auto">
+                <div class="text-center mt-4">
+                    <h2 class="text-xl font-semibold">Aditya Raj</h2>
+                    <h3 class="text-lg font-light">Founder, Exhib.it</h3>
+                    <div class="mt-4 flex justify-around">
+                        <button onclick="openModal()"
+                            class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded flex items-center">
+                            <i class="fa-solid fa-share mr-2"></i>
+                            Share my Profile
+                        </button>
+                        <a href="https://www.linkedin.com/in/aditya-raj-47029a24b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                            target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">
+                            Follow me
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Component -->
+    <div class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center" onclick="closeModal(event)">
+        <div class="bg-white bg-opacity-70 p-6 rounded-lg shadow-lg text-center relative" onclick="event.stopPropagation()">
+            <h1 class="text-2xl font-bold">Share My Profile</h1>
+            <button onclick="closeModal()" class="absolute top-2 right-2 text-2xl">&times;</button>
+            <h3 class="mt-4 text-lg">Share this via</h3>
+            <div class="flex justify-center space-x-4 mt-4">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://example.com" class="icon text-blue-600" id="facebook" target="_blank">
+                    <i class="fa-brands fa-facebook-f text-2xl"></i>
+                </a>
+                <a href="https://twitter.com/intent/tweet?url=https://example.com" class="icon text-blue-400" id="twitter" target="_blank">
+                    <i class="fa-brands fa-twitter text-2xl"></i>
+                </a>
+                <a href="https://www.instagram.com/?url=https://example.com" class="icon text-pink-500" id="instagram" target="_blank">
+                    <i class="fa-brands fa-instagram text-2xl"></i>
+                </a>
+                <a href="#" class="icon text-green-500" id="whatsapp" target="_blank">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i>
+                </a>
+                <a href="https://telegram.me/share/url?url=https://example.com" class="icon text-blue-500" id="telegram" target="_blank">
+                    <i class="fa-brands fa-telegram text-2xl"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay hidden fixed inset-0" onclick="closeModal()"></div>
+
+    <script>
+        const modal = document.querySelector(".modal");
+        const overlay = document.querySelector(".overlay");
+
+        // Modal open function
+        const openModal = () => {
+            console.log("Modal is open");
+            modal.classList.add("active");
+            overlay.classList.add("active");
+        };
+
+        // Modal close function
+        const closeModal = (event) => {
+            console.log("Modal is close");
+            modal.classList.remove("active");
+            overlay.classList.remove("active");
+        };
+
+        // Update share links with the current URL and custom message
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentUrl = window.location.href;
+            const message = `Hey , I m Aditya Raj, founder of Exhib.it. Check my profile- ${currentUrl}`;
+
+            // WhatsApp
+            const whatsappLink = document.getElementById("whatsapp");
+            whatsappLink.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+
+            // Instagram
+            const instagramLink = document.getElementById("instagram");
+            instagramLink.href = `https://instagram.com/direct/new/?text=${encodeURIComponent(currentUrl)}`;
+
+            // Twitter
+            const twitterLink = document.getElementById("twitter");
+            twitterLink.href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(message)}`;
+
+            // Telegram
+            const telegramLink = document.getElementById("telegram");
+            telegramLink.href = `https://telegram.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(message)}`;
+        });
+    </script>
+</body>
+
+</html>
