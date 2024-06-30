@@ -162,15 +162,20 @@
 
             // Instagram
             const instagramLink = document.getElementById("instagram");
-            instagramLink.href = `https://instagram.com/direct/new/?text=${encodeURIComponent(currentUrl)}`;
+            instagramLink.href = `https://instagram.com/direct/new/?text=${encodeURIComponent(message)}`;
 
             // Twitter
             const twitterLink = document.getElementById("twitter");
             twitterLink.href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(message)}`;
 
+            // Facebook
+            const facebookLink = document.getElementById("facebook");
+            facebookLink.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}&quote=${encodeURIComponent(message)}`;
+            
             // Telegram
             const telegramLink = document.getElementById("telegram");
-            telegramLink.href = `https://telegram.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(message)}`;
+            telegramLink.href = `https://telegram.me/share/url?text=${encodeURIComponent(message)}`;
+
         });
     </script>
 </body>
