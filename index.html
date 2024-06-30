@@ -167,11 +167,11 @@
 
             // Twitter
             const twitterLink = document.getElementById("twitter");
-            twitterLink.href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(message)}`;
-
+            twitterLink.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
+            
             // Facebook
             const facebookLink = document.getElementById("facebook");
-            facebookLink.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}&quote=${encodeURIComponent(message)}`;
+            facebookLink.href = `https://www.facebook.com/sharer/sharer.php?quote=${encodeURIComponent(message)}`;
             
             // Telegram
             const telegramLink = document.getElementById("telegram");
